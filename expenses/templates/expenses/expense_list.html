@@ -6,6 +6,14 @@
 
 <form method="get" action="">
   {{form.as_p}}
+	<label for="sort_by">Sort by:</label>
+  <select id="sort_by" name="sort_by">
+		<option value=""> --No sorting-- </option>
+		<option value="date"> Date ascending </option>
+		<option value="-date"> Date descending </option>
+		<option value="category"> Category ascending </option>
+		<option value="-category"> Category descending </option>
+	</select>
   <button type="submit">search</button>
 </form>
 <br>
@@ -45,15 +53,33 @@
 
 {% include "_pagination.html" %}
 <hr>
+{% comment%}  Modified table, so it can show count of items belonging to different categories  {% endcomment %}
 <table border="1">
   <caption>Summary per category</caption>
   <tr>
-    {% for category, total in summary_per_category.items %}
+    {% for category, values in summary_per_category.items %}
 	<tr>
 		<td>{{category}}:</td>
-		<td>{{total|floatformat:2}}</td>
+		<td>{{values.0|floatformat:2}}</td>
+		<td>{{values.1}}</td>
 	</tr>
 	{% endfor %}
   </tr>
 </table>
+<hr>
+{% comment %}  Added table, which summarizes costs based on year and month  {% endcomment %}
+<table border="1">
+  <caption>Summary per year-month</caption>
+  <tr>
+    {% for date, amount in summary_per_month_year.items %}
+	<tr>
+		<td>{{date}}:</td>
+		<td>{{amount|floatformat:2}}</td>
+	</tr>
+	{% endfor %}
+  </tr>
+</table>
+<hr>
+{% comment %}  Added total amount field  {% endcomment %}
+<caption>Total amount spend: {{ total_amount_spent|floatformat:2 }} </caption>
 {% endblock %}

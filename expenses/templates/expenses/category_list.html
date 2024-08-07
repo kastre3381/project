@@ -17,6 +17,8 @@
 				{{obj.name}}
 			</td>
 			<td>
+				{% comment %}  Added edit field  {% endcomment %}
+				<a href="{% url 'expenses:category-edit' obj.id %}">edit</a>
 				<a href="{% url 'expenses:category-delete' obj.id %}">delete</a>
 			</td>
 		</tr>

@@ -50,4 +50,13 @@ urlpatterns = [
             template_name='generic_delete.html'
          ),
          name='category-delete'),
+    # Added path, which enables users in editing the category
+    path('category/<int:pk>/edit/',
+         UpdateView.as_view(
+            model=Category,
+            fields='__all__',
+            success_url=reverse_lazy('expenses:category-list'),
+            template_name='generic_update.html'
+         ),
+         name='category-edit'),
 ]
